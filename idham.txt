@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PATRON_DB="patrons.db"
+PATRON_FILE="patrons.txt"
 
 search_patron() {
 	while true; do
@@ -20,7 +20,7 @@ search_patron() {
 				continue
 			fi 
 			
-			patron_record=$(grep -i "^${patron_id}:" "$PATRON_DB" 2>/dev/null)
+			patron_record=$(grep -i "^${patron_id}:" "$PATRON_FILE" 2>/dev/null)
 			if [ -z "$patron_record" ]; then
 				echo "Patron not found. Please try again."
 				continue
@@ -34,40 +34,40 @@ search_patron() {
 		
 		clear
 		echo "----------------------------------------"
-        echo "|       Search a Patron Details        |"
-        echo "----------------------------------------"
-        echo
-        echo "Enter Patron ID: ${fields[0]}"
-        echo
-        echo "First Name: ${fields[1]}"
-        echo "Last Name: ${fields[2]}"
-        echo "Mobile Number: ${fields[3]}"
-        echo "Birth Date (MM-DD-YYYY): ${fields[4]}"
-        echo "Membership Type: ${fields[5]}"
-        echo "Joined Date (MM-DD-YYYY): ${fields[6]}"
-        echo
-        echo "--------------------------------------"
-        echo "Press (q) to return to Patron Maintenance Menu."
-        echo
+	        echo "|       Search a Patron Details        |"
+	        echo "----------------------------------------"
+	        echo
+	        echo "Enter Patron ID: ${fields[0]}"
+	        echo
+	        echo "First Name: ${fields[1]}"
+	        echo "Last Name: ${fields[2]}"
+	        echo "Mobile Number: ${fields[3]}"
+	        echo "Birth Date (MM-DD-YYYY): ${fields[4]}"
+	        echo "Membership Type: ${fields[5]}"
+	        echo "Joined Date (MM-DD-YYYY): ${fields[6]}"
+	        echo
+	        echo "--------------------------------------"
+	        echo "Press (q) to return to Patron Maintenance Menu."
+	        echo
         
         
-        while true; do 
-        	read -p "Search another patron? (y)es or (q)uit: " choice
-        	choice=$(echo "$choice" | tr '[:upper:]' '[:lower:]')
-        	
-        	
-        	case "$choice" in
-        		q)
-        			return
-        			;;
-        		y)
-        			break
-        			;;
-        		*)
-        			echo "Invalid choice. Please enter y or q."
-        			;;
-        	esac
-        done		
+	        while true; do 
+	        	read -p "Search another patron? (y)es or (q)uit: " choice
+	        	choice=$(echo "$choice" | tr '[:upper:]' '[:lower:]')
+	        	
+	        	
+	        	case "$choice" in
+	        		q)
+	        			return
+	        			;;
+	        		y)
+	        			break
+	        			;;
+	        		*)
+	        			echo "Invalid choice. Please enter y or q."
+	        			;;
+	        	esac
+	        done		
 	done
 }
 
@@ -89,7 +89,7 @@ update_patron(){
 			fi
 			
 			
-			patron_record=$(prep -1 "^${patron_id}:" "$PATRON_DB" 2>/dev/null)
+			patron_record=$(prep -1 "^${patron_id}:" "$PATRON_FILE" 2>/dev/null)
 			if [ -z "$patron_record" ]; then
 				echo "Patron not found. Please try again."
 				continue
@@ -242,9 +242,9 @@ update_patron(){
 					case "$(echo "$confirm" | tr '[:upper:]' '[:lower:]')" in
 						y)
 							temp_file=$(mktemp)
-							grep -v "^${patron_id}:" "$PATRON_DB" > "$temp_file"
+							grep -v "^${patron_id}:" "$PATRON_FILE" > "$temp_file"
 							echo "$(update_fields[0]}:${update_fields[1]}:${update_fields[2]}:${update_fields[3]}:${update_fields[4]}:${update_fields[5]}:${update_fields[6]}" >> "$temp_file"
-							mv "$temp_file" "$PATRON_DB"
+							mv "$temp_file" "$PATRON_FILE"
 							echo "Patron record updated succesfully."
 							read -n1 -p "Press any key to continue..."
 							return
@@ -273,13 +273,13 @@ sort_by_id(){
 	clear
 	
 	
-	if [ ! -f "$PATRON_DB" ]; then 
-		echo "| Error: Patron database not found.	|"
+	if [ ! -f "$PATRON_FILE" ]; then 
+		echo "| Error: Patron file not found.	|"
 		echo -n1 -p "| Press any key to continue..."
 		return
 	fi 
 	
-	sorted_records=$(sort -t':' -k,1 "$PATRON_DB" 2>/dev/null)
+	sorted_records=$(sort -t':' -k,1 "$PATRON_FILE" 2>/dev/null)
 	
 	if [ -z "$sorted_records" ]; then
 		echo "| No patron records found in database.	|"
