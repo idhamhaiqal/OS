@@ -34,40 +34,40 @@ search_patron() {
 		
 		clear
 		echo "----------------------------------------"
-        echo "|       Search a Patron Details        |"
-        echo "----------------------------------------"
-        echo
-        echo "Enter Patron ID: ${fields[0]}"
-        echo
-        echo "First Name: ${fields[1]}"
-        echo "Last Name: ${fields[2]}"
-        echo "Mobile Number: ${fields[3]}"
-        echo "Birth Date (MM-DD-YYYY): ${fields[4]}"
-        echo "Membership Type: ${fields[5]}"
-        echo "Joined Date (MM-DD-YYYY): ${fields[6]}"
-        echo
-        echo "--------------------------------------"
-        echo "Press (q) to return to Patron Maintenance Menu."
-        echo
+        	echo "|       Search a Patron Details        |"
+        	echo "----------------------------------------"
+       		echo
+        	echo "Enter Patron ID: ${fields[0]}"
+        	echo
+        	echo "First Name: ${fields[1]}"
+        	echo "Last Name: ${fields[2]}"
+        	echo "Mobile Number: ${fields[3]}"
+        	echo "Birth Date (MM-DD-YYYY): ${fields[4]}"
+        	echo "Membership Type: ${fields[5]}"
+        	echo "Joined Date (MM-DD-YYYY): ${fields[6]}"
+	        echo
+	        echo "--------------------------------------"
+	        echo "Press (q) to return to Patron Maintenance Menu."
+	        echo
         
         
-        while true; do 
-        	read -p "Search another patron? (y)es or (q)uit: " choice
-        	choice=$(echo "$choice" | tr '[:upper:]' '[:lower:]')
-        	
-        	
-        	case "$choice" in
-        		q)
-        			return
-        			;;
-        		y)
-        			break
-        			;;
-        		*)
-        			echo "Invalid choice. Please enter y or q."
-        			;;
-        	esac
-        done		
+	        while true; do 
+	        	read -p "Search another patron? (y)es or (q)uit: " choice
+	        	choice=$(echo "$choice" | tr '[:upper:]' '[:lower:]')
+	        	
+	        	
+	        	case "$choice" in
+	        		q)
+	        			return
+	        			;;
+	        		y)
+	        			break
+	        			;;
+	        		*)
+	        			echo "Invalid choice. Please enter y or q."
+	        			;;
+	        	esac
+	        done		
 	done
 }
 
